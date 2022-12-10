@@ -14,6 +14,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet weak var timer: WKInterfaceTimer!
     @IBOutlet weak var buttonTimer: WKInterfaceButton!
     @IBOutlet weak var labelWeight: WKInterfaceLabel!
+    @IBOutlet weak var labelCook: WKInterfaceLabel!
     @IBOutlet weak var groupText: WKInterfaceGroup!
     @IBOutlet weak var groupImage: WKInterfaceGroup!
     @IBOutlet weak var sliderCook: WKInterfaceSlider!
@@ -56,26 +57,63 @@ class InterfaceController: WKInterfaceController {
     }
     
     private func updateConfiguration() {
-        
+        let kgString = String(format: "%.1f", kg)
+        labelWeight.setText("Total: \(kgString) kg")
+        labelCook.setText(meatTemperature.stringValue)
+        sliderCook.setValue(Float(meatTemperature.rawValue))
+        let index = Int(kg * 10 - 1)
+        pickerWeight.setSelectedItemIndex(index)
+        labelCook2.setText(meatTemperature.stringValue)
+        pickerCook.setSelectedItemIndex(meatTemperature.rawValue)
     }
     
     @IBAction func toggleTimer() {
+        if timerIsRunning {
+            timer.setDate(Date())
+            timer.stop()
+            buttonTimer.setTitle("Iniciar timer")
+        } else {
+            let time = meatTemperature.cookTimeForKg(kg)
+            timer.setDate(Date(timeIntervalSinceNow: time))
+            timer.start()
+            buttonTimer.setTitle("Parar timer")
+        }
+        timerIsRunning.toggle()
     }
     
     @IBAction func minus() {
+        if kg > 0.1 {
+            kg -= increment
+            updateConfiguration()
+        }
     }
     
     @IBAction func plus() {
+        if kg < maxKg {
+            kg += increment
+            updateConfiguration()
+        }
     }
     
     @IBAction func onSliderChange(_ value: Float) {
+        let intValue = Int(value)
+        if let meatTemperature = MeatTemperature(rawValue: intValue) {
+            self.meatTemperature = meatTemperature
+            updateConfiguration()
+        }
     }
     
     
     @IBAction func onWeightPickerChange(_ value: Int) {
+        kg = Double(value + 1) * increment
+        updateConfiguration()
     }
     
     @IBAction func onCookPickerChange(_ value: Int) {
+        if let meatTemperature = MeatTemperature(rawValue: value) {
+            self.meatTemperature = meatTemperature
+            updateConfiguration()
+        }
     }
     
     @IBAction func onModeChange(_ value: Bool) {

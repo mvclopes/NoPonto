@@ -13,7 +13,7 @@
                     <items>
                         <group width="1" alignment="center" layout="vertical" id="08L-8S-WRb">
                             <items>
-                                <timer width="55" alignment="center" id="6XQ-n1-Tj1"/>
+                                <timer alignment="center" id="6XQ-n1-Tj1"/>
                                 <button width="1" alignment="left" title="Iniciar Timer" id="QNo-dH-LuP">
                                     <connections>
                                         <action selector="toggleTimer" destination="AgC-eL-Hgc" id="7xc-Xr-K5Q"/>
@@ -72,6 +72,7 @@
                         <outlet property="buttonTimer" destination="QNo-dH-LuP" id="0UU-Cf-NnJ"/>
                         <outlet property="groupImage" destination="uSH-ia-EYA" id="8MI-q8-cGs"/>
                         <outlet property="groupText" destination="bDT-CI-bIy" id="fvC-Aw-gpH"/>
+                        <outlet property="labelCook" destination="ygq-Kx-CcD" id="uFO-kb-bSl"/>
                         <outlet property="labelCook2" destination="mOw-xr-J5i" id="4Wr-6G-wlu"/>
                         <outlet property="labelWeight" destination="VYE-nL-hkE" id="c3H-OW-p1D"/>
                         <outlet property="pickerCook" destination="ICl-Q4-DIW" id="Afh-KS-k8c"/>
